@@ -3,7 +3,6 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import express from 'express';
 import http from "node:http";
-import bodyParser from 'body-parser';
 
 //user defined imports
 import connectToMongoDB from './lib/mongoDB';
@@ -28,8 +27,6 @@ app.use(cors({
 }));
 app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
 app.use(cookieParser()); // to parse the incoming requests with cookies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 /** Log the incoming request */
 app.use(incomingRequestLogging);
