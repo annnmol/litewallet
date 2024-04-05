@@ -106,7 +106,7 @@ const getWalletById = async (req: Request, res: Response) => {
       date: wallet.updatedAt,
     };
 
-    res.status(201).json({
+    res.status(200).json({
       data: walletResponse,
     });
   } catch (error) {
@@ -147,7 +147,7 @@ const updateWallet = async (req: Request, res: Response) => {
       date: wallet.updatedAt,
     };
 
-    res.status(201).json({
+    res.status(200).json({
       data: walletResponse,
     });
   } catch (error) {

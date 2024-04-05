@@ -9,7 +9,7 @@ import connectToMongoDB from './lib/mongoDB';
 import { errorHandlingLogging, healthCheckLogging, incomingRequestLogging } from './lib/utils';
 import middleware from './middleware/middleware';
 import walletRouter from './routes/wallet.routes';
-import publicRouter from "./routes/public.routes";
+import authRouter from "./routes/auth.routes";
 
 config();
 
@@ -34,11 +34,14 @@ app.use(incomingRequestLogging);
 // Health check endpoint
 app.get("/api/health-check", healthCheckLogging);
 
+// auth Routes
+app.use("/api/auth", authRouter);
+
 //* Middleware
 app.use(middleware)
 
 //* Protected Routes
-app.use("/api/wallet", walletRouter);
+app.use("/api", walletRouter);
 
 /** Route Error handling */
 app.use(errorHandlingLogging);
