@@ -1,4 +1,4 @@
-import LoginScreen from "@/screens/(auth)/login-screen";
+import CreateWalletScreen from "@/screens/(auth)/create-wallet-screen";
 import DetailedTransactionScreen from "@/screens/(protected)/detailed-transaction-screen";
 import HomeScreen from "@/screens/(protected)/home-screen";
 import { Navigate, createBrowserRouter } from "react-router-dom";
@@ -13,7 +13,7 @@ const appRouter = createBrowserRouter(
       children: [
         {
           path: "/login",
-          element: <LoginScreen />,
+          element: <CreateWalletScreen />,
         },
       ],
     },
@@ -26,7 +26,7 @@ const appRouter = createBrowserRouter(
           errorElement: <Navigate to="/error" />,
         },
         {
-          path: "/detailed-transaction",
+          path: "/transactions/:id",
           element: <DetailedTransactionScreen />,
         },
       ],

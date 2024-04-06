@@ -6,53 +6,48 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const formatDateTime = (dateString: Date) => {
-  const formatDate = (options: Intl.DateTimeFormatOptions) =>
-    new Date(dateString).toLocaleString("en-US", options);
-
-  const formatDateWithMonth = (date: Date) => {
-    const day = date.getDate();
-    const month = date.toLocaleString("en-US", { month: "short" });
-    return `${day} ${month}`;
-  };
-
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    month: "short",
+    month: "short", 
     day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
+    hour: "numeric", 
+    minute: "numeric", 
+    hour12: true, 
   };
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: "numeric",
-    month: "short",
-    year: "numeric",
+    month: "short", 
+    year: "numeric", 
   };
 
   const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
+    hour: "numeric", 
+    minute: "numeric", 
+    hour12: true, 
   };
 
-  // const dateWithMonthOptions: Intl.DateTimeFormatOptions = {
-  //   day: "numeric",
-  //   month: "short",
-  // };
+  const formattedDateTime: string = new Date(dateString).toLocaleString(
+    "en-US",
+    dateTimeOptions
+  );
 
-  const dateWithWeekdayOptions: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    weekday: "short",
-  };
+  const formattedDate: string = new Date(dateString).toLocaleString(
+    "en-US",
+    dateOptions
+  );
+
+  const formattedTime: string = new Date(dateString).toLocaleString(
+    "en-US",
+    timeOptions
+  );
 
   return {
-    dateTime: formatDate(dateTimeOptions),
-    dateOnly: formatDate(dateOptions),
-    timeOnly: formatDate(timeOptions),
-    dateWithWeekday: formatDate(dateWithWeekdayOptions),
-    dateWithMonth: formatDateWithMonth(dateString),
+    dateTime: formattedDateTime,
+    dateOnly: formattedDate,
+    timeOnly: formattedTime,
   };
 };
+
 export function formatPrice(
   price: number | string,
   options: {

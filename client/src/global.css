@@ -9,6 +9,23 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: #afafaf;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #858585;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #858585;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

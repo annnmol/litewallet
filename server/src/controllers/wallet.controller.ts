@@ -115,6 +115,7 @@ const getWalletById = async (req: Request, res: Response) => {
   }
 };
 
+
 const updateWallet = async (req: Request, res: Response) => {
   try {
     const { id } = req?.params;
