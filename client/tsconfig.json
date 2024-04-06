@@ -24,12 +24,9 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@/app/*": [
-        "./src/app/*"
       ]
-    }
-    
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"], 
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
