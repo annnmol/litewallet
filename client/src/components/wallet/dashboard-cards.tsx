@@ -10,7 +10,7 @@ import {
 interface Props {
   data: {
     title: string;
-    value: number;
+    value: number | string;
     percentage: string;
     icon: React.ReactNode;
   }[];
@@ -29,7 +29,7 @@ const DashboardCards = ({ data }: Props) => {
               {card?.icon}
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹ {card?.value}</div>
+              <div className="text-xl font-bold">{card?.value}</div>
               <p className="text-xs text-muted-foreground">
                 {card?.percentage}
               </p>

@@ -8,12 +8,7 @@ const AuthRoutes = () => {
   // TODO: Use authentication token
   const authSession = useAppStore(useShallow((state) => state.authSession));
 
-  console.log(
-    `🚀 ~ file: PublicRoutes.tsx:10 ~ AuthRoutes ~ authSession:`,
-    authSession
-  );
-
-  return authSession ? <Navigate to="/home" replace /> : <AuthLayout />;
+  return authSession ? <Navigate to="/" replace /> : <AuthLayout />;
 };
 
 export default AuthRoutes;

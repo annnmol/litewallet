@@ -48,24 +48,10 @@ const createTransaction = async (req: Request, res: Response) => {
 const getTransactions = async (req: Request, res: Response) => {
   try {
     const walletId = req.query?.walletId as string;
-    const skip = Number(req.query?.skip) as number;
-    const limit = Number(req.query?.limit) as number;
-    const dateSortOrder = Number(req.query?.date) as 1 | -1 | undefined; // can be undefined
-    const amountSortOrder = Number(req.query?.amount) as 1 | -1 | undefined; // can be undefined
-
-    console.log(
-      `🚀 ~ file: transaction.controller.ts:68 ~ getTransactions ~ req?.params:`,
-      { walletId, skip, limit, amountSortOrder, dateSortOrder }
-    );
-
-    const result = GetTransactionsSchema.safeParse({ walletId, skip, limit });
-
-    if (!result.success) {
-      // Validation failed,
-      return res
-        .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
-    }
+    const skip = Number(req.query?.skip) as number | undefined; // can be undefined
+    const limit = Number(req.query?.limit) as number | undefined; // can be undefined
+    const dateSortOrder = Number(req.query?.date) as number | undefined; // can be undefined
+    const amountSortOrder = Number(req.query?.amount) as number | undefined; // can be undefined
 
     if (!walletId) {
       return res.status(400).json({ error: "walletId is required" });
@@ -81,16 +67,17 @@ const getTransactions = async (req: Request, res: Response) => {
     // }
 
     const transactionService = new TransactionService();
-    const transactions = await transactionService.getTransactions(
-      walletId,
-      skip,
-      limit,
-      dateSortOrder,
-      amountSortOrder
-    );
+    const { transactions, pagination } =
+      await transactionService.getTransactions(
+        walletId,
+        skip,
+        limit,
+        dateSortOrder,
+        amountSortOrder
+      );
 
     res.status(200).json({
-      data: transactions,
+      data: transactions
     });
   } catch (error) {
     console.log("Error in get transaction controller", error);
@@ -101,46 +88,40 @@ const getTransactions = async (req: Request, res: Response) => {
 const exportTransactions = async (req: Request, res: Response) => {
   try {
     const walletId = req.query?.walletId as string;
-    const skip = Number(req.query?.skip) as number;
-    const limit = Number(req.query?.limit) as number;
-    const dateSortOrder = Number(req.query?.date) as 1 | -1 | undefined; // can be undefined
-    const amountSortOrder = Number(req.query?.amount) as 1 | -1 | undefined; // can be undefined
-
-    const result = GetTransactionsSchema.safeParse({ walletId, skip, limit });
-
-    if (!result.success) {
-      // Validation failed,
-      return res
-        .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
-    }
+    const skip = Number(req.query?.skip) as number | undefined; // can be undefined
+    const limit = Number(req.query?.limit) as number | undefined; // can be undefined
+    const dateSortOrder = Number(req.query?.date) as number | undefined; // can be undefined
+    const amountSortOrder = Number(req.query?.amount) as number | undefined; // can be undefined
 
     if (!walletId) {
       return res.status(400).json({ error: "walletId is required" });
     }
 
     const transactionService = new TransactionService();
-    const transactions = await transactionService.getTransactions(
+    const { transactions } = await transactionService.getTransactions(
       walletId,
       skip,
       limit,
       dateSortOrder,
-      amountSortOrder
+      amountSortOrder,
+      true
     );
 
-    const headers = Object.keys(transactions[0]).join(',');
-    const rows = transactions.map(transaction => Object.values(transaction).join(',')).join('\n');
+    const headers = Object.keys(transactions[0]).join(",");
+    const rows = transactions
+      .map((transaction) => Object.values(transaction).join(","))
+      .join("\n");
 
     const csv = `${headers}\n${rows}`;
 
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename=transactions.csv');
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=transactions.csv"
+    );
     res.status(200);
     res.send(csv);
     
-    // res.status(201).json({
-    //   data: "ok",
-    // });
 
   } catch (error) {
     console.log("Error in export transaction controller", error);

@@ -36,9 +36,11 @@ const CreateTransactionForm = () => {
     // console.log(description, amount, type);
     const modifiedAmount = type === "DEBIT" ? -amount : amount;
       createTranscation(currentWallet?._id, modifiedAmount, description).then((res) => {
-          console.log("AAa")
         getMyWallet(currentWallet?._id);
         getTranscations({ id: currentWallet?._id, limit: 3, skip: 0, date: -1 });
+        setAmount(0);
+        setDescription("");
+        setType("CREDIT");
     });
   };
   return (
@@ -128,7 +130,7 @@ const CreateTransactionForm = () => {
                 </Select>
               </div> */}
               <div className="flex flex-col gap-4 mt-4">
-                <Button type="submit">Submit</Button>
+                <Button disabled={loading} type="submit">Submit</Button>
               </div>
             </div>
           </form>

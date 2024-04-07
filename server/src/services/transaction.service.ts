@@ -9,8 +9,11 @@ export class TransactionService {
   //   this.wallet = wallet;
   // }
 
-  async createTransaction(walletId: string, amount: number, description: string) {
-
+  async createTransaction(
+    walletId: string,
+    amount: number,
+    description: string
+  ) {
     const objectId = new mongoose.Types.ObjectId(walletId);
     const wallet = await Wallet.findById(objectId).select("-createdAt -__v");
 
@@ -19,7 +22,7 @@ export class TransactionService {
       return {
         wallet: null,
         transaction: null,
-      }
+      };
     }
 
     const currentBalance = wallet?.balance;
@@ -49,10 +52,11 @@ export class TransactionService {
 
   async getTransactions(
     walletId: string,
-    skip: number,
-    limit: number,
-    dateSortOrder: 1 | -1 | undefined, 
-    amountSortOrder: 1 | -1 | undefined
+    skip: number | undefined,
+    limit: number | undefined,
+    dateSortOrder: number | undefined,
+    amountSortOrder: number | undefined,
+    isExport: boolean = false
   ) {
     const walletObjectId = new mongoose.Types.ObjectId(walletId as string);
 
@@ -70,23 +74,32 @@ export class TransactionService {
       },
     ];
 
-    if (typeof amountSortOrder !== "undefined" && !Number.isNaN(amountSortOrder)) {
-      pipeline.push({ $sort: {amount:amountSortOrder } });
+    if (amountSortOrder === 1 || amountSortOrder === -1) {
+      pipeline.push({ $sort: { amount: amountSortOrder } });
     }
 
-    if (typeof dateSortOrder !== "undefined" && !Number.isNaN(dateSortOrder)) {
-      pipeline.push({ $sort: {date:dateSortOrder } });
+    if (dateSortOrder === 1 || dateSortOrder === -1) {
+      pipeline.push({ $sort: { date: dateSortOrder } });
     }
-    
-    if (skip) {
+
+    if (!isExport && typeof skip === "number") {
       pipeline.push({ $skip: skip });
     }
 
-    if (limit) {
+    if (!isExport && typeof limit === "number" && limit > 0) {
       pipeline.push({ $limit: limit });
     }
 
-    const transactions = await Transaction.aggregate(pipeline);
-    return transactions ?? [];
+    const [transactions, total] = await Promise.all([
+      Transaction.aggregate(pipeline),
+      Transaction.countDocuments({ walletId: walletObjectId }),
+    ]);
+
+    const pagination = {
+      skip,
+      limit,
+      total: total,
+    };
+    return { transactions: transactions ?? [], pagination: pagination };
   }
 }

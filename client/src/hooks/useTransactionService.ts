@@ -58,17 +58,13 @@ const useTransactionService = () => {
       if (typeof limit === "number") {
         url += `&limit=${limit}`;
       }
-      if (amount) {
+      if (amount === -1 || amount === 1) {
         url += `&amount=${amount}`;
       }
-      if (date) {
+      if (date === -1 || date === 1) {
         url += `&date=${date}`;
       }
 
-      console.log(
-        `🚀 ~ file: useTransactionService.ts:61 ~ returnnewPromise ~ url:`,
-        url
-      );
 
       NetworkService.get(url)
         .then((res: any) => {
@@ -90,26 +86,39 @@ const useTransactionService = () => {
     });
   };
 
-  const exportTranscations = async (id: string): Promise<any> => {
+  const exportTranscations = async ({
+    id,
+    amount,
+    date,
+  }: IFetchTransactionsProps): Promise<any> => {
     return new Promise((resolve, reject) => {
-      // setLoading(true);
-      // NetworkService.get(`/wallet/${id}`)
-      //   .then((res: any) => {
-      //     if (res?.error) {
-      //       handleError(res);
-      //       reject(res);
-      //     } else {
-      //       setCurrentWallet(res?.data);
-      //       resolve(res);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     handleError(error);
-      //     reject(error);
-      //   })
-      //   .finally(() => {
-      //     setLoading(false);
-      //   });
+      setLoading(true);
+      let url = `/export/transactions?walletId=${id}`;
+      
+      if (amount === -1 || amount === 1) {
+        url += `&amount=${amount}`;
+      }
+      if (date === -1 || date === 1) {
+        url += `&date=${date}`;
+      }
+
+
+      NetworkService.get(url)
+        .then((res: any) => {
+          if (res?.error) {
+            handleError(res);
+            reject(res);
+          } else {
+            resolve(res);
+          }
+        })
+        .catch((error) => {
+          handleError(error);
+          reject(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     });
   };
 
