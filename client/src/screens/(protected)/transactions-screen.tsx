@@ -5,8 +5,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { toast } from "sonner";
 import { File } from "lucide-react";
+
 //user defined
 import { Button } from "@/components/ui/button";
 import {
@@ -45,12 +45,7 @@ const TransactionsScreen = () => {
 
   const exportToCSV = () => {
     if (!id) return;
-    exportTranscations({ id: id, date: date, amount: amount }).then((res) => {
-      toast.success("Transactions exported successfully", {
-        position: "top-center",
-        duration: 1500,
-      });
-    });
+    exportTranscations({ id: id, date: date, amount: amount })
   };
 
   const navigateWithDefaults = (

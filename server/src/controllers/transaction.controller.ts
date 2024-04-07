@@ -2,9 +2,7 @@ import { Request, Response } from "express";
 
 //user defined
 import { TransactionService } from "../services/transaction.service";
-import {
-  CreateTransactionSchema,
-} from "../validations/wallet.validation";
+import { CreateTransactionSchema } from "../validations/wallet.validation";
 
 const createTransaction = async (req: Request, res: Response) => {
   try {
@@ -18,9 +16,7 @@ const createTransaction = async (req: Request, res: Response) => {
 
     if (!result.status) {
       // Validation failed,
-      return res
-        .status(400)
-        .json({ error: result?.message ?? "Invalid data" });
+      return res.status(400).json({ error: result?.message ?? "Invalid data" });
     }
 
     const transactionService = new TransactionService();
@@ -76,7 +72,7 @@ const getTransactions = async (req: Request, res: Response) => {
       );
 
     res.status(200).json({
-      data: transactions
+      data: transactions,
     });
   } catch (error) {
     console.log("Error in get transaction controller", error);
@@ -119,9 +115,8 @@ const exportTransactions = async (req: Request, res: Response) => {
       "attachment; filename=transactions.csv"
     );
     res.status(200);
+    res.attachment(csv);
     res.send(csv);
-    
-
   } catch (error) {
     console.log("Error in export transaction controller", error);
     res.status(500).json({ error: "Internal Server Error" });

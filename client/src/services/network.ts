@@ -10,9 +10,8 @@ export class Network {
     const fullUrl = `${SERVER_BASE_URL}${url}`;
     const response = await fetch(fullUrl, {
       headers,
-      // credentials: "include"
     });
-    return response.json();
+    return response?.json();
   }
 
   public async post<T>(
@@ -25,7 +24,6 @@ export class Network {
       method: "POST",
       headers,
       body: JSON.stringify(body),
-      // credentials: "include",
     });
     return response.json();
   }
@@ -40,7 +38,6 @@ export class Network {
       method: "PUT",
       headers,
       body: JSON.stringify(body),
-      // credentials: "include",
     });
     return response.json();
   }
@@ -50,9 +47,32 @@ export class Network {
     const response = await fetch(fullUrl, {
       method: "DELETE",
       headers,
-      // credentials: "include",
     });
     return response.json();
+  }
+
+  public async download(url: string, headers = DEFAULT_HEADERS): Promise<void> {
+    const fullUrl = `${SERVER_BASE_URL}${url}`;
+    const response = await fetch(fullUrl, {
+      headers,
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+
+      const downloadUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = "transactions.csv"; // name of file
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return Promise.resolve();
+    } else {
+      console.error("HTTP-Error: " + response.status);
+      return Promise.reject();
+    }
   }
 }
 

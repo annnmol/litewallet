@@ -107,13 +107,8 @@ const useTransactionService = () => {
       if (date === -1 || date === 1) {
         url += `&date=${date}`;
       }
-
-      NetworkService.get(url)
+      NetworkService.download(url)
         .then((res: any) => {
-          // if (res?.error) {
-          //   handleError(res);
-          //   reject(res);
-          // } else {
             toast("Export Transcation", {
               description: `Exporting is done. Check downloads folder`,
               action: {
@@ -122,7 +117,6 @@ const useTransactionService = () => {
               },
               duration: 3000,
             });
-          // }
           resolve(res);
         })
         .catch((error) => {
