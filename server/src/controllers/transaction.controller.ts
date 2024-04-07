@@ -4,24 +4,23 @@ import { Request, Response } from "express";
 import { TransactionService } from "../services/transaction.service";
 import {
   CreateTransactionSchema,
-  GetTransactionsSchema,
 } from "../validations/wallet.validation";
 
 const createTransaction = async (req: Request, res: Response) => {
   try {
     const { id } = req?.params;
     const { amount, description } = req?.body;
-    const result = CreateTransactionSchema.safeParse({
+    const result = CreateTransactionSchema({
       id,
       amount,
       description,
     });
 
-    if (!result.success) {
+    if (!result.status) {
       // Validation failed,
       return res
         .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
+        .json({ error: result?.message ?? "Invalid data" });
     }
 
     const transactionService = new TransactionService();

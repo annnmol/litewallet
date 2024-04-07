@@ -12,30 +12,31 @@ import Transaction from "../models/transaction.model";
 const createWallet = async (req: Request, res: Response) => {
   try {
     const { balance, name } = req?.body;
-    const result = CreateWalletSchema.safeParse(req?.body);
+    const result = CreateWalletSchema(req?.body);
 
-    if (!result.success) {
+    if (!result.status) {
       // Validation failed,
       return res
         .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
+        .json({ error: result?.message ?? "Invalid data" });
     }
-
-    // if (!name) {
-    //   return res.status(400).json({ error: "name is required field." });
-    // }
-
-    // if (!balance) {
-    //   return res.status(400).json({ error: "balance is required field." });
-    // }
 
     // Check if username exists
     const walletWithSameUsername = await Wallet.findOne({ name });
 
     if (walletWithSameUsername) {
-      return res
-        .status(400)
-        .json({ error: "Wallet with this name already exists" });
+     return res.status(200).json({
+        data: {
+          _id: walletWithSameUsername._id.toString(),
+          balance: walletWithSameUsername.balance, //not updating the balance returing previous balance
+          name: walletWithSameUsername.name,
+          date: walletWithSameUsername.updatedAt,
+        },
+        message: "Wallet with this name already exists",
+      });
+      // return res
+      //   .status(400)
+      //   .json({ error: "Wallet with this name already exists" });
     }
 
     //create wallet with 0 balance
@@ -82,13 +83,13 @@ const getWalletById = async (req: Request, res: Response) => {
   try {
     const { id } = req?.params;
 
-    const result = GetWalletByIdSchema.safeParse(req?.params);
+    const result = GetWalletByIdSchema(req?.params);
 
-    if (!result.success) {
+    if (!result.status) {
       // Validation failed,
       return res
         .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
+        .json({ error: result?.message ?? "Invalid data" });
     }
 
     const objectId = new mongoose.Types.ObjectId(id);
@@ -121,13 +122,13 @@ const updateWallet = async (req: Request, res: Response) => {
     const { id } = req?.params;
     const { name } = req?.body;
 
-    const result = UpdateWalletSchema.safeParse({ id, name });
+    const result = UpdateWalletSchema({ id, name });
 
-    if (!result.success) {
+    if (!result.status) {
       // Validation failed,
       return res
         .status(400)
-        .json({ error: result.error.errors?.[0]?.message ?? "Invalid data" });
+        .json({ error: result?.message ?? "Invalid data" });
     }
 
     const objectId = new mongoose.Types.ObjectId(id);

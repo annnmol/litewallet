@@ -160,7 +160,7 @@ const TransactionsScreen = () => {
           <CardFooter className="flex justify-end gap-8">
             <Pagination>
               <PaginationContent>
-                <Button variant={"ghost"} asChild>
+                <Button variant={"ghost"} asChild disabled={skip === 0}>
                   <Link
                     to={`/transactions/${id}?skip=${
                       skip - limit > 0 ? skip - limit : 0
@@ -172,7 +172,11 @@ const TransactionsScreen = () => {
                 <Button variant={"ghost"} disabled>
                   {skip / limit + 1}
                 </Button>
-                <Button variant={"ghost"} asChild>
+                <Button
+                  variant={"ghost"}
+                  asChild
+                  disabled={transactions?.length === 0}
+                >
                   <Link
                     to={`/transactions/${id}?skip=${
                       skip + limit
