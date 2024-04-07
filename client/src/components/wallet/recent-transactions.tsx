@@ -6,8 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "../ui/badge";
 import { formatDateTime } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 interface Props {
   data: ITransaction[];
@@ -15,7 +15,7 @@ interface Props {
 
 const RecentTransactions = ({ data }: Props) => {
   return (
-    // <>
+    <>
     <Table>
       <TableHeader>
         <TableRow>
@@ -57,7 +57,7 @@ const RecentTransactions = ({ data }: Props) => {
         )}
       </TableBody>
     </Table>
-    // </>
+     </>
   );
 };
 

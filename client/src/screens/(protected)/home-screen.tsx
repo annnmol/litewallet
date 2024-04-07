@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import useAppStore from "@/store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import {
   Activity,
   ArrowUpRight,

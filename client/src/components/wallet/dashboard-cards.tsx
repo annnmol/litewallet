@@ -1,10 +1,10 @@
 import React from "react";
+//user defined
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 
 interface Props {
@@ -21,7 +21,7 @@ const DashboardCards = ({ data }: Props) => {
     <>
       {data?.map((card, index: number) => {
         return (
-          <Card key={index} className="min-w-[180px]">
+          <Card key={index?.toString()} className="min-w-[180px]">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {card?.title}

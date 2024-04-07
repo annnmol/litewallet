@@ -1,6 +1,7 @@
-import { LocalStorageService } from "@/services/localstorage";
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
+//user defined
+import { LocalStorageService } from "@/services/localstorage";
 
 export type StoreState = {
   authSession: any;

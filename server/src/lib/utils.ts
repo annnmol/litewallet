@@ -45,7 +45,5 @@ export const incomingRequestLogging = (
 export const roundToFourDecimalPlaces = (balance: number): number => {
   const roundOff = (Math.round(balance * 10000) / 10000).toFixed(4); // round off to 4 decimal places
 
-  console.log(`🚀 ~ file: utils.ts:48 ~ roundToFourDecimalPlaces ~ roundOff:`, roundOff);
-
   return parseFloat(roundOff) || 0.0000;  //toFixed returns string, so parse it to float
 };

@@ -1,8 +1,8 @@
-//user defined components
-import useAppStore from "@/store";
-import { NetworkService } from "@/services/network";
-import { handleError } from "@/lib/utils";
 import { toast } from "sonner";
+//user defined components
+import { handleError } from "@/lib/utils";
+import { NetworkService } from "@/services/network";
+import useAppStore from "@/store";
 
 const useWalletService = () => {
   const {

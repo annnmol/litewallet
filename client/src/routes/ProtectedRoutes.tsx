@@ -1,14 +1,14 @@
+import { Navigate } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
+//user defined
 import ProtectedLayout from "@/screens/(protected)/layout";
 import useAppStore from "@/store";
 
-import { Navigate, Outlet } from "react-router-dom";
-import { useShallow } from "zustand/react/shallow";
 
 const ProtectedRoutes = () => {
-  // TODO: Use authentication token
   const authSession = useAppStore(useShallow((state) => state.authSession));
   
-  return authSession ? <ProtectedLayout /> : <Navigate to="/login" replace />;
+  return authSession ? <ProtectedLayout /> : <Navigate to="/create-wallet" replace />;
 };
 
 export default ProtectedRoutes;

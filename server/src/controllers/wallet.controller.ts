@@ -1,4 +1,7 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
+
+//user defined 
 import Wallet from "../models/wallet.model";
 import { roundToFourDecimalPlaces } from "../lib/utils";
 import {
@@ -6,7 +9,6 @@ import {
   GetWalletByIdSchema,
   UpdateWalletSchema,
 } from "../validations/wallet.validation";
-import mongoose from "mongoose";
 import Transaction from "../models/transaction.model";
 
 const createWallet = async (req: Request, res: Response) => {

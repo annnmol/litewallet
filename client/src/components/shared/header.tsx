@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Coins, LogOut } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { Coins, LogOut } from "lucide-react";
-import useAppStore from "@/store";
-import { useEffect } from "react";
+//user defined
+import { Button } from "@/components/ui/button";
 import useWalletService from "@/hooks/useWalletService";
+import useAppStore from "@/store";
 
 const Header = () => {
   const { setAuthSession, currentWallet, authSession } = useAppStore();

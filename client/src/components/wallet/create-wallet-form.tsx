@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useWalletService from "@/hooks/useWalletService";
-
 import { CreateWalletSchema } from "@/validations/wallet.validation";
 
 const CreateWalletForm = () => {
@@ -17,7 +16,6 @@ const CreateWalletForm = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // console.log(name, balance);
 
     //validate the form
     const result = CreateWalletSchema({ name, balance });

@@ -1,7 +1,8 @@
+import { Navigate, createBrowserRouter } from "react-router-dom";
+//user defined
 import CreateWalletScreen from "@/screens/(auth)/create-wallet-screen";
 import TransactionsScreen from "@/screens/(protected)/transactions-screen";
 import HomeScreen from "@/screens/(protected)/home-screen";
-import { Navigate, createBrowserRouter } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AuthRoutes from "./AuthRoutes";
 import ErrorScreen from "@/screens/error-screen";
@@ -12,7 +13,7 @@ const appRouter = createBrowserRouter(
       element: <AuthRoutes />,
       children: [
         {
-          path: "/login",
+          path: "/create-wallet",
           element: <CreateWalletScreen />,
         },
       ],

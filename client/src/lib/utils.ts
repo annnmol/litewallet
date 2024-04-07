@@ -77,7 +77,7 @@ export const handleError = (
   );
 
   toast.error(title, {
-    description: error?.message ?? "Failed to fetch",
+    description: error?.message?.toString() ?? "Failed to fetch",
     action: {
       label: "Undo",
       onClick: () => console.log("Undo"),
