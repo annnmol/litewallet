@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -48,24 +49,6 @@ export const formatDateTime = (dateString: Date) => {
   };
 };
 
-export function formatPrice(
-  price: number | string,
-  options: {
-    currency?: "INR" | "USD" | "EUR" | "GBP" | "BDT";
-    notation?: Intl.NumberFormatOptions["notation"];
-  } = {}
-) {
-  const { currency = "INR", notation = "compact" } = options;
-
-  const numericPrice = typeof price === "string" ? parseFloat(price) : price;
-
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    notation,
-    maximumFractionDigits: 2,
-  }).format(numericPrice);
-}
 
 export async function sleep(ms: number) {
   return new Promise((resolve) => {
@@ -92,6 +75,15 @@ export const handleError = (
     { title, error },
     Object.keys(error)?.length > 0
   );
+
+  toast.error(title, {
+    description: error?.message ?? "Failed to fetch",
+    action: {
+      label: "Undo",
+      onClick: () => console.log("Undo"),
+    },
+    duration: 3000,
+  });
 
   // throw new Error(error);
 };

@@ -66,7 +66,7 @@ const CreateWalletForm = () => {
                   <Input
                     id="name"
                     placeholder="Anmol Tanwar"
-                    required
+                    // required
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -77,7 +77,7 @@ const CreateWalletForm = () => {
                   <Input
                     id="balance"
                     type="number"
-                    required
+                    // required
                     name="balance"
                     value={balance}
                     onChange={(e) => setBalance(Number(e.target.value))}
