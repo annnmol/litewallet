@@ -1,17 +1,17 @@
 # litewallet
 A wallet transcations app made using MERN STACK. The app is fully written in Typescript. 
 
-#### LIVE URL: https://litewallet-client.vercel.app/
+## LIVE URL: https://litewallet-client.vercel.app/
 
 ##### SERVER URL: https://litewallet.onrender.com/api/health-check
 
-## SCREENSHOTS:  
+### SCREENSHOTS:  
 
-## DEMO VIDEO: 
+### DEMO VIDEO: 
 
-## CODE EXPLAINATION VIDEO: 
+### CODE EXPLAINATION VIDEO: 
 
-##TECH STACK:
+### TECH STACK:
 1. Client: REACT.JS, TYPESCRIPT
 2. Server: NODE.JS, EXPRESS.JS, TYPESCRIPT
 3. Databse: MONGO DB
