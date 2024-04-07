@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 //user defined components
 import useAppStore from "@/store";
 import { NetworkService } from "@/services/network";
@@ -16,19 +17,25 @@ const useTransactionService = () => {
 
   const createTranscation = async (
     walletId: string,
-    amount:number,
+    amount: number,
     description: string
   ): Promise<any> => {
     return new Promise((resolve, reject) => {
       setLoading(true);
-      NetworkService.post(`/transact/${walletId}`,{amount,description})
+      NetworkService.post(`/transact/${walletId}`, { amount, description })
         .then((res: any) => {
           if (res?.error) {
             handleError(res);
             reject(res);
           } else {
-            // setAuthSession(res?.data?._id);
-            // setCurrentWallet(res?.data);
+            toast("Transcation created", {
+              description: `Wallet balance has been updated.`,
+              action: {
+                label: "Undo",
+                onClick: () => console.log("Undo"),
+              },
+              duration: 3000,
+            });
             resolve(res);
           }
         })
@@ -65,7 +72,6 @@ const useTransactionService = () => {
         url += `&date=${date}`;
       }
 
-
       NetworkService.get(url)
         .then((res: any) => {
           if (res?.error) {
@@ -94,7 +100,7 @@ const useTransactionService = () => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       let url = `/export/transactions?walletId=${id}`;
-      
+
       if (amount === -1 || amount === 1) {
         url += `&amount=${amount}`;
       }
@@ -102,15 +108,22 @@ const useTransactionService = () => {
         url += `&date=${date}`;
       }
 
-
       NetworkService.get(url)
         .then((res: any) => {
-          if (res?.error) {
-            handleError(res);
-            reject(res);
-          } else {
-            resolve(res);
-          }
+          // if (res?.error) {
+          //   handleError(res);
+          //   reject(res);
+          // } else {
+            toast("Export Transcation", {
+              description: `Exporting is done. Check downloads folder`,
+              action: {
+                label: "Undo",
+                onClick: () => console.log("Undo"),
+              },
+              duration: 3000,
+            });
+          // }
+          resolve(res);
         })
         .catch((error) => {
           handleError(error);

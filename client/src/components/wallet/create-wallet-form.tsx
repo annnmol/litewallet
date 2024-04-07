@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 //user defined components
 import ONBOARD_IMAGE from "@/assets/wallet--person.svg";
@@ -6,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useWalletService from "@/hooks/useWalletService";
-import Loader from "@/screens/loader";
 
+import { CreateWalletSchema } from "@/validations/wallet.validation";
 
-const CreateWalletForm =()=> {
+const CreateWalletForm = () => {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState(0);
   const { setupWallet, loading } = useWalletService();
@@ -17,13 +18,28 @@ const CreateWalletForm =()=> {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // console.log(name, balance);
-    setupWallet(name, balance)
+
+    //validate the form
+    const result = CreateWalletSchema({ name, balance });
+
+    if (!result.status) {
+      return toast.error("Invalid data", {
+        description: result?.message?.toString() ?? "Invalid data",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+        duration: 2000,
+      });
+    }
+
+    setupWallet(name, balance).then(() => {
+      setName("");
+      setBalance(0);
+    });
   };
   return (
     <>
-      {
-        loading ? <Loader /> : null
-      }
       <div className="w-screen h-screen flex justify-center items-center">
         <div className="hidden bg-muted w-full h-screen lg:flex lg:justify-center lg:items-center lg:flex-col lg:gap-8">
           <img
@@ -77,6 +93,6 @@ const CreateWalletForm =()=> {
       </div>
     </>
   );
-}
+};
 
 export default CreateWalletForm;

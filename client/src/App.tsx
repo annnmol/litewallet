@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <RouterProvider router={appRouter} />
-      <Toaster position="bottom-center" richColors />
+      <Toaster position="top-center" richColors />
 
       {loading ? <Loader /> : null}
     </>

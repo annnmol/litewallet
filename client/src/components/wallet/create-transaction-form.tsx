@@ -21,6 +21,8 @@ import {
 import { Button } from "../ui/button";
 import { TRANSACTION_TYPE_OPTIONS } from "@/lib/constants";
 import useWalletService from "@/hooks/useWalletService";
+import { CreateTransactionSchema } from "@/validations/wallet.validation";
+import { toast } from "sonner";
 
 const CreateTransactionForm = () => {
   const [description, setDescription] = useState("");
@@ -33,7 +35,18 @@ const CreateTransactionForm = () => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!currentWallet?._id) return;
-    // console.log(description, amount, type);
+    const result = CreateTransactionSchema({ description, amount, type});
+
+    if (!result.status) {
+      return toast.error("Invalid data", {
+        description: result?.message?.toString() ?? "Invalid data",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+        duration: 2000,
+      });
+    }
     const modifiedAmount = type === "DEBIT" ? -amount : amount;
       createTranscation(currentWallet?._id, modifiedAmount, description).then((res) => {
         getMyWallet(currentWallet?._id);
@@ -102,33 +115,10 @@ const CreateTransactionForm = () => {
                   placeholder="Cab"
                   className="w-full "
                   rows={2}
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
-              {/* <div className="flex flex-col gap-4">
-                <Label htmlFor="description">Type</Label>
-                <Select
-                  value={type}
-                  required
-                  onValueChange={(e) => setType(e)}
-                >
-                  <SelectTrigger className="w-full min-w-[130px]">
-                    <SelectValue placeholder="CREDIT" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {TRANSACTION_TYPE_OPTIONS?.map((opt, index) => {
-                      return (
-                        <SelectItem
-                          key={opt?.id ?? index?.toString()}
-                          value={opt?.id}
-                        >
-                          {opt?.label}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </div> */}
               <div className="flex flex-col gap-4 mt-4">
                 <Button disabled={loading} type="submit">Submit</Button>
               </div>
