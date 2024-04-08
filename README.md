@@ -17,10 +17,7 @@ A wallet transcations app made using MERN STACK. The app is fully written in Typ
 1. Clone the repo
 2. cd server && yarn start && yarn dev
 3. cd client && yarn start && yarn dev
-4. server .env
-  MONGO_DB_URI= ""
-5. cleint .env 
-  VITE_SERVER_URL =""
+4. change server .env file and Replace password <Password> in MONGO_DB_URI with this: Anmol%40123
 
 ### TECH STACK:
 1. Client: REACT.JS, TYPESCRIPT
