@@ -10,8 +10,7 @@ A wallet transcations app made using MERN STACK. The app is fully written in Typ
 
 ### DEMO VIDEO: https://drive.google.com/file/d/1cvJYgXI2i9GB6QcsJcR6EVj2bWZ2EuFX/view?usp=sharing
 
-### CODE EXPLAINATION VIDEO: 
-
+### CODE EXPLAINATION VIDEO: https://drive.google.com/file/d/17f8CXRBRbEoHs39HTXUAA4AZy0TtQSFP/view?usp=sharing
 
 ### LOCAL DEV SETUP
 1. Clone the repo
