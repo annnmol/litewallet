@@ -4,10 +4,11 @@ A wallet transcations app made using MERN STACK. The app is fully written in Typ
 ## LIVE URL: https://litewallet-client.vercel.app/
 
 ##### SERVER URL: https://litewallet.onrender.com/api/health-check
+!!!NOTE: This backend service goes spin down due to inactivity (Free Plans). Needs to manually up again!!! 
 
-### SCREENSHOTS:  
+### SCREENSHOTS:  https://drive.google.com/drive/folders/1zTlQAbe0ixtCN7xklDrsTF15QC6yTWKP?usp=sharing
 
-### DEMO VIDEO: 
+### DEMO VIDEO: https://drive.google.com/file/d/1cvJYgXI2i9GB6QcsJcR6EVj2bWZ2EuFX/view?usp=sharing
 
 ### CODE EXPLAINATION VIDEO: 
 
@@ -27,7 +28,6 @@ A wallet transcations app made using MERN STACK. The app is fully written in Typ
 3. Databse: MONGO DB
 4: UI Library: Shadcn, Tailwind css
 
-
 ### Screens:
 1. Create Wallet Screen (Public)
 2. Create Transcations / Dashboard Screen (Protected) 
@@ -39,7 +39,6 @@ refer to POSTMAN COLLECTION to test ( https://github.com/annnmol/litewallet/blob
 1. SETUP WALLET: /api/wallet/setup -- POST
 2. GET WALLET: /api/wallet/:id --- GET
 3. UPDATE WALLET:  /api/wallet/:id --- PUT
-
 4. CREATE TRANSACTION: /api/transact/:walletId -- POST
 5. GET FILTERED TRANSACTIONS: /api/transactions/:walletId?skip=0&limit=6&date=0&amount=-1 -- GET
 6. EXPORT TRANSACTIONS:  /api/export/transactions/:walletId?date=-1 -- GET
