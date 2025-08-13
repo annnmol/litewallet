@@ -1,16 +1,14 @@
 # litewallet
 A wallet transcations app made using MERN STACK. The app is fully written in Typescript. 
 
+### DEMO VIDEO: https://www.youtube.com/watch?v=hydLxgpNP7g
+
+### CODE EXPLAINATION VIDEO: https://www.youtube.com/watch?v=tzlbLEwdk2Q
+
 ## LIVE URL: https://litewallet-client.vercel.app/
 
 ##### SERVER URL: https://litewallet.onrender.com/api/health-check
-!!!NOTE: This backend service goes spin down due to inactivity (Free Plans). Needs to manually up again!!! 
-
-### SCREENSHOTS:  https://drive.google.com/drive/folders/1zTlQAbe0ixtCN7xklDrsTF15QC6yTWKP?usp=sharing
-
-### DEMO VIDEO: https://drive.google.com/file/d/1cvJYgXI2i9GB6QcsJcR6EVj2bWZ2EuFX/view?usp=sharing
-
-### CODE EXPLAINATION VIDEO: https://drive.google.com/file/d/17f8CXRBRbEoHs39HTXUAA4AZy0TtQSFP/view?usp=sharing
+!!!NOTE: These services goes spin down due to inactivity (Free Plans). Needs to manually up again!!! 
 
 ### LOCAL DEV SETUP
 1. Clone the repo
